@@ -5,7 +5,8 @@ rcon \- command line source rcon client
 .B rcon [options] command
 .P
 .SH DESCRIPTION
-rcon can be used as a command line remote console client for source game servers. It supports a configuration file to safely store your rcon passwords. It will execute the command given, or - if no command is given -  will read a list of commands from standard input.
+rcon can be used as a command line remote console client for source game servers. It supports a configuration file to safely store your rcon passwords. It will execute the command given, or - if no command is given -  will read a list of commands from standard input. A basic line history and edit capability is built in: use the up arrow key to access previous input.
+rcon can also be used as a simple remote server controller. In this mode, status is continuously updated and keyboard function keys are used to change maps and kick or ban users.
 .SH OPTIONS
 .TP
 \fB\-c \-\-config\fR filename
