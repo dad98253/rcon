@@ -17,12 +17,14 @@ SET(SOURCES
   "config.c"
   "memstream.c"
   "fmemopen.c"
+  "linenoise.c"
   )
 SET(HEADERS
   "srcrcon.h"
   "config.h"
   "memstream.h"
   "fmemopen.h"
+  "linenoise.h"	
   ${CMAKE_CURRENT_BINARY_DIR}/sysconfig.h)
 
 INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/include"

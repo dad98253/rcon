@@ -3,6 +3,7 @@
 #include "srcrcon.h"
 #include "sysconfig.h"
 #include "memstream.h"
+#include "linenoise.h"
 
 #include <glib.h>
 
@@ -620,16 +621,18 @@ static int handle_arguments(int sock, int ac, char **av)
 static int handle_stdin(int sock)
 {
     char *line = NULL;
-    size_t sz = 0;
-    int read = 0;
     int ec = 0;
 
-    while ((read = getline(&line, &sz, stdin)) != -1) {
+// Load history from file. The history file is just a plain text file
+//     * where entries are separated by newlines. 
+    linenoiseHistoryLoad("history.txt"); // Load the history at startup 
+
+    while((line = linenoise("rcon> ")) != NULL) {
         char *cmd = line;
 
         /* Strip away \n
          */
-        line[read-1] = '\0';
+//        line[read-1] = '\0';
 
         while (*cmd != '\0' && isspace(*cmd)) {
             ++cmd;
@@ -638,6 +641,7 @@ static int handle_stdin(int sock)
         /* Comment or empty line
          */
         if (cmd[0] == '\0' || cmd[0] == '#') {
+	    free(line);
             continue;
         }
 
@@ -648,13 +652,19 @@ static int handle_stdin(int sock)
 	    break;
         }
 
+	if (line[0] != '\0' && line[0] != '/') {
+        //    printf("echo: '%s'\n", line);
+            linenoiseHistoryAdd(line); /* Add to the history. */
+            linenoiseHistorySave("history.txt"); /* Save the history on disk. */
+        }
+
         if (send_command(sock, cmd, 0, NULL)) {
             ec = -1;
             break;
         }
+	
+	free(line);
     }
-
-    free(line);
 
     return ec;
 }
