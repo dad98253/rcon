@@ -159,3 +159,14 @@ an ncurses interface. Perfect for running it in a local or remote shell.
 # See Also
 
 * [RCON Protocol Specification](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol)
+
+# Note regarding rcon security
+
+The rcom protocol transmits everything (including your rcon password) un-encrypted. Thus,
+anyone with access to your internet connection could conceivably capture your password and/or
+monitor your rcon traffic. If this is a concern to you, you may wish to tunnel your rcon
+connection through ssh or some other secure VPN running on your server. For example, the
+following command will connect to the remote server using ssh and then run rcon on the remote
+server (rcon will connect to the server locally without exiting the server's firewall).
+
+ssh -t someuser@174.53.163.41 rcon --host 174.53.163.41 --port 27045 --password somepass
