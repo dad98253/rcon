@@ -19,16 +19,17 @@ $ brew install Holek/rcon/rcon
 
 You require ```libbsd```, ```check```, ```cmake``` and ```glib-2.0```
 to successfully build rcon. You have to install those from your distribution's
-repository. For example:
+repository. If you wish to compile the ncurses based version, you will also need
+the ncurses. For example:
 
 - In Debian you'd do something like this:
 ```shell
-$ apt-get install build-essential cmake check libbsd-dev libglib2.0-dev
+$ apt-get install build-essential cmake check libbsd-dev libglib2.0-dev [libncurses5-dev]
 ```
 
 - In Fedora you'd do something like this:
 ```shell
-$ dnf install @c-development cmake check-devel libbsd-devel glib2-devel
+$ dnf install @c-development cmake check-devel libbsd-devel glib2-devel [ncurses-devel]
 ```
 
 Then build the project:
